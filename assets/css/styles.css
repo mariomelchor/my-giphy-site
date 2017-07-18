@@ -1,0 +1,140 @@
+@charset "utf-8";
+
+/*------------------------------------*\
+	#Layout
+\*------------------------------------*/
+
+html {
+	font-size: 100%;
+}
+body {
+	color: #fff;
+	background: #000;
+}
+.giphy-col {
+	min-height: 200px;
+}
+.giphy-item {
+	background-color: #2D2D2D;
+}
+
+/*------------------------------------*\
+	#Styles
+\*------------------------------------*/
+
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
+	color: inherit;
+}
+h1, .h1 {
+	font-size: 2.25rem;
+}
+h2, .h2 {
+	font-size: 2rem;
+}
+h3, .h3 {
+	font-size: 1.75rem;
+}
+h4, .h4 {
+	font-size: 1.5rem;
+}
+h5, .h5 {
+	font-size: 1.25rem;
+}
+h6, .h6 {
+	font-size: 1rem;
+}
+figure {
+	margin: 0;
+}
+img {
+	height: auto;
+	max-width: 100%;
+}
+img.media-object {
+	max-width: none;
+}
+textarea {
+	resize: vertical;
+}
+::-moz-selection {
+	background: #b3d4fc;
+	text-shadow: none;
+}
+::selection {
+	background: #b3d4fc;
+	text-shadow: none;
+}
+
+/*------------------------------------*\
+	#Headings
+\*------------------------------------*/
+
+
+/*------------------------------------*\
+	#List
+\*------------------------------------*/
+
+.list-bordered li {
+	padding-right: 10px;
+	border-right: solid 1px #ccc;
+}
+.list-bordered li:last-child {
+	padding-right: 5px;
+	border-right: none;
+}
+
+/*------------------------------------*\
+	#Misc Classes
+\*------------------------------------*/
+
+.media-fluid {
+	width: 100%;
+	height: auto;
+	display: block;
+}
+
+/*------------------------------------*\
+	#Bootstrap
+\*------------------------------------*/
+
+
+/*------------------------------------*\
+	#Buttons
+\*------------------------------------*/
+
+.btn {
+	border-radius: 0;
+}
+.btn-transparent {
+	color: #fff;
+	background-color: transparent;
+	border-color: #fff;
+}
+.btn-transparent:hover,
+.btn-transparent:focus  {
+	color: #fff;
+	background-color: #98ca3c;
+	border-color: #000;
+}
+.btn-transparent:active,
+.btn-transparent:active:hover,
+.btn-transparent:active:focus {
+	color: #fff;
+	background-color: transparent;
+	border-color: #fff;
+}
+.btn-success {
+	background-color: #76b54a;
+	border-color: #6AA343;
+}
+.btn-success:hover,
+.btn-success:focus {
+	background-color: #449d44;
+	border-color: #398439;
+}
+.btn-success:active
+.btn-success:active:hover,
+.btn-success:active:focus {
+	background-color: #398439;
+	border-color: #255625;
+}
