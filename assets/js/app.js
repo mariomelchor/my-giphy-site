@@ -48,7 +48,7 @@ $(document).ready(function() {
 
       $.each( result.data , function( index, giphy ) {
         // console.log(giphy);
-        var column = $('<div class="giphy-col col-sm-2">');
+        var column = $('<div class="giphy-col col-sm-4">');
         var img    = $('<img>');
         img.attr( 'data-gif', giphy.images.downsized.url );
 
@@ -56,7 +56,7 @@ $(document).ready(function() {
           src:    giphy.images.fixed_height_still.url,
           width:  giphy.images.fixed_height_still.width,
           height: giphy.images.fixed_height_still.height,
-          class: 'giphy-img center-block'
+          class: 'giphy-img img-responsive media-fluid center-block'
         });
 
         var giphyItem = $('<div class="giphy-item">');
