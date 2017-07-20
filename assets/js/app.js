@@ -26,7 +26,6 @@ $(document).ready(function() {
     giphyTags.push(value);
 
     renderTags();
-
   });
 
   // When btn-tag is clicked
@@ -48,7 +47,6 @@ $(document).ready(function() {
       // console.log(result);
 
       $.each( result.data , function( index, giphy ) {
-
         // console.log(giphy);
         var column = $('<div class="giphy-col col-sm-2">');
         var img    = $('<img>');
@@ -65,7 +63,6 @@ $(document).ready(function() {
         column.html( giphyItem.html( img ) );
 
         $('#giphy-row').append( column );
-
       });
 
     });
@@ -73,10 +70,12 @@ $(document).ready(function() {
   }
 
   $(document).on('click', '.giphy-img', function(e) {
-    var gif = $(this).data('gif');
-    var src = $(this).data('src');
-    $(this).attr('src', gif );
-    // $(this).attr('data-gif', src );
+    var img = $(this);
+    var gif = img.attr('data-gif');
+    var src = img.attr('src');
+
+    img.attr('src', gif ).attr('data-gif', src );
   });
+
 
 });//document
