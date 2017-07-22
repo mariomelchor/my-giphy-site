@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
   // API
-  var apiurl = 'http://api.giphy.com/v1/gifs/search?';
+  var apiurl = 'https://api.giphy.com/v1/gifs/search?';
   var apikey = 'dc6zaTOxFJmzC';
 
   // Search Tags Array
