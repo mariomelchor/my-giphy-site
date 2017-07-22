@@ -28,9 +28,14 @@ $(document).ready(function() {
     // Check if value is not empty and is not currently in the giphyTags array
     if ( value && $.inArray( value, giphyTags ) === -1 ) {
       giphyTags.push(value);
+
+      // Run function to display new tags added to giphyTags array
+      renderTags();
+
+      // Render giphy images with value added to input
+      renderGiphyImg( value );
     }
 
-    renderTags();
   });
 
   // When .btn-tag is clicked
@@ -40,7 +45,7 @@ $(document).ready(function() {
   });
 
 
-  // Render giphy images itn the DOM
+  // Render giphy images in the DOM
   function renderGiphyImg( tag ) {
 
     var search = 'q=' + tag;
