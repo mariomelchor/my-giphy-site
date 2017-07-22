@@ -24,7 +24,11 @@ $(document).ready(function() {
     e.preventDefault();
 
     var value = $('#add-tag-input').val();
-    giphyTags.push(value);
+
+    // Check if value is not empty and is not currently in the giphyTags array
+    if ( value && $.inArray( value, giphyTags ) === -1 ) {
+      giphyTags.push(value);
+    }
 
     renderTags();
   });
@@ -36,6 +40,7 @@ $(document).ready(function() {
   });
 
 
+  // Render giphy images itn the DOM
   function renderGiphyImg( tag ) {
 
     var search = 'q=' + tag;
@@ -60,7 +65,7 @@ $(document).ready(function() {
           src:    giphy.images.fixed_height_still.url,
           width:  giphy.images.fixed_height_still.width,
           height: giphy.images.fixed_height_still.height,
-          class: 'giphy-img img-responsive center-block'
+          class: 'giphy-img media-fluid center-block'
         });
 
         var giphyItem = $('<div class="giphy-item">');
@@ -75,6 +80,7 @@ $(document).ready(function() {
 
   }
 
+  // Play/Pause when .giphy-img is clicked
   $(document).on('click', '.giphy-img', function(e) {
     var img = $(this);
     var gif = img.attr('data-gif');

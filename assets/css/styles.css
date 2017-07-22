@@ -15,7 +15,7 @@ body {
 	padding-top: 25px;
 	padding-bottom: 25px;
 	border-bottom: solid 1px #484542;
-	background: #161514;
+	background-color: #161514;
 }
 .site-header .form-group {
 	margin-bottom: 0;
@@ -27,7 +27,7 @@ body {
 .site-header input[type="text"] {
 	width: 100%;
 	padding-right: 20%;
-	background: #fff;
+	background-color: #fff;
 }
 .site-header button[type="submit"] {
 	margin-left: -20%;
@@ -43,10 +43,9 @@ body {
 	margin-bottom: 50px;
 }
 .giphy-col {
-	/*min-height: 200px;*/
 }
 .giphy-item {
-	/*background-color: #2D2D2D;*/
+	background-color: #2D2D2D;
 }
 
 
@@ -57,20 +56,6 @@ body {
 img {
 	height: auto;
 	max-width: 100%;
-}
-img.media-object {
-	max-width: none;
-}
-textarea {
-	resize: vertical;
-}
-::-moz-selection {
-	background: #b3d4fc;
-	text-shadow: none;
-}
-::selection {
-	background: #b3d4fc;
-	text-shadow: none;
 }
 
 /*------------------------------------*\
