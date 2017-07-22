@@ -11,12 +11,13 @@ $(document).ready(function() {
   function renderTags() {
     $('#giphy-tags').empty();
     $.each( giphyTags, function( index, val ) {
-       var giphyTag = $('<a href="#" class="btn btn-default btn-block btn-tag">').html( val );
+       var giphyTag = $('<a href="#" class="btn btn-primary btn-tag">').html( val );
        $('#giphy-tags').append( giphyTag );
     });
   }
 
   renderTags();
+  renderGiphyImg( giphyTags[1] );
 
   // Get value of form input when clicking submit add it to array
   $('#add-tag-submit').click(function(e) {
@@ -28,12 +29,15 @@ $(document).ready(function() {
     renderTags();
   });
 
-  // When btn-tag is clicked
-  $(document).on('click', '.btn-tag', renderGiphyImg );
+  // When .btn-tag is clicked
+  $(document).on('click', '.btn-tag', function(e) {
+    var tagClicked = $(this).html();
+    renderGiphyImg( tagClicked );
+  });
 
-  function renderGiphyImg() {
 
-    var tag = $(this).html();
+  function renderGiphyImg( tag ) {
+
     var search = 'q=' + tag;
     var queryURL = apiurl + search  +'&limit=18&api_key=' + apikey;
 
@@ -56,13 +60,15 @@ $(document).ready(function() {
           src:    giphy.images.fixed_height_still.url,
           width:  giphy.images.fixed_height_still.width,
           height: giphy.images.fixed_height_still.height,
-          class: 'giphy-img img-responsive media-fluid center-block'
+          class: 'giphy-img img-responsive center-block'
         });
 
         var giphyItem = $('<div class="giphy-item">');
         column.html( giphyItem.html( img ) );
 
         $('#giphy-row').append( column );
+
+
       });
 
     });
@@ -78,4 +84,4 @@ $(document).ready(function() {
   });
 
 
-});//document
+});
