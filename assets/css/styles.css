@@ -42,15 +42,37 @@ body {
 .giphy-tags-col {
 	margin-bottom: 50px;
 }
-.giphy-col {
-/*	width: 200px;
-	overflow: hidden;*/
-}
 .grid-sizer {
 	width: 33.33%;
 }
+.giphy-col {
+	margin-bottom: 30px;
+}
 .giphy-item {
-	background-color: #2D2D2D;
+	padding: 10px;
+	border: solid 1px #484542;
+	background-color: #161514;
+}
+.giphy-item .giphy-img {
+	border-bottom: solid 3px #484542;
+	margin-bottom: 10px;
+}
+.giphy-item .img-avatar {
+	margin-right: 10px;
+}
+.giphy-item .giphy-user {
+	display: inline-block;
+	vertical-align: top;
+	font-size: 12px;
+}
+.giphy-item .giphy-link {
+	color: #5cb85c;
+	display: inline-block;
+	font-size: 20px;
+}
+.giphy-item .giphy-link:hover,
+.giphy-item .giphy-link:focus {
+	color: #4cae4c;
 }
 
 
