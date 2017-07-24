@@ -105,9 +105,9 @@ $(document).ready(function() {
         img.attr( 'data-gif', giphy.images.downsized.url );
 
         img.attr({
-          src:    giphy.images.downsized_still.url,
-          width:  giphy.images.downsized_still.width,
-          height: giphy.images.downsized_still.height,
+          src:    giphy.images.fixed_height_still.url,
+          width:  giphy.images.fixed_height_still.width,
+          height: giphy.images.fixed_height_still.height,
           class: 'giphy-img media-fluid center-block'
         });
 
