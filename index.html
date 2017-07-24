@@ -7,15 +7,9 @@
 	<link rel="stylesheet" href="assets/css/styles.css">
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
-  <script src="assets/js/fit-columns.js"></script>
+  <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+  <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
 	<script src="assets/js/app.js"></script>
-  <script>
-    $('#giphy-row').isotope({
-      layoutMode: 'fitColumns',
-      itemSelector : '.giphy-col'
-    });
-  </script>
 </head>
 <body>
 
@@ -39,7 +33,9 @@
     </div><!-- /.giphy-tags-col -->
 
     <div class="col-sm-12">
-      <div id="giphy-row" class="row"></div><!-- /#giphy-row -->
+      <div id="giphy-row" class="row">
+        <div class="grid-sizer"></div><!-- /.grid-sizer -->
+      </div><!-- /#giphy-row -->
     </div><!-- /.col -->
 
   </div><!-- /.row -->

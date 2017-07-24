@@ -43,6 +43,11 @@ body {
 	margin-bottom: 50px;
 }
 .giphy-col {
+/*	width: 200px;
+	overflow: hidden;*/
+}
+.grid-sizer {
+	width: 33.33%;
 }
 .giphy-item {
 	background-color: #2D2D2D;

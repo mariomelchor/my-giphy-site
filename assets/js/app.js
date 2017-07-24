@@ -1,5 +1,14 @@
 $(document).ready(function() {
 
+  var $grid = $('#giphy-row').imagesLoaded( function() {
+    // init Masonry after all images have loaded
+    $grid.masonry({
+      itemSelector: '.giphy-col',
+      columnWidth: '.grid-sizer',
+      percentPosition: true
+    });
+  });
+
   // API
   var apiurl = 'https://api.giphy.com/v1/gifs/search?';
   var apikey = 'dc6zaTOxFJmzC';
@@ -15,6 +24,7 @@ $(document).ready(function() {
        $('#giphy-tags').append( giphyTag );
     });
   }
+
 
   renderTags();
   renderGiphyImg( giphyTags[1] );
@@ -52,6 +62,7 @@ $(document).ready(function() {
     var queryURL = apiurl + search  +'&limit=18&api_key=' + apikey;
 
     $('#giphy-row').empty();
+    $('#giphy-row').append('<div class="grid-sizer">');
 
     $.ajax({
       url: queryURL,
@@ -63,21 +74,33 @@ $(document).ready(function() {
       $.each( result.data , function( index, giphy ) {
         // console.log(giphy);
         var column = $('<div class="giphy-col col-sm-4">');
+
         var img    = $('<img>');
         img.attr( 'data-gif', giphy.images.downsized.url );
 
         img.attr({
-          src:    giphy.images.fixed_height_still.url,
-          width:  giphy.images.fixed_height_still.width,
-          height: giphy.images.fixed_height_still.height,
+          src:    giphy.images.downsized_still.url,
+          width:  giphy.images.downsized_still.width,
+          height: giphy.images.downsized_still.height,
+          // class: 'giphy-img media-fluid center-block'
           class: 'giphy-img media-fluid center-block'
+
         });
 
-        var giphyItem = $('<div class="giphy-item">');
-        column.html( giphyItem.html( img ) );
+        // var giphyItem = $('<div class="giphy-item">');
+        column.html( img );
 
-        $('#giphy-row').append( column );
+        $column =  $( column );
 
+        // $grid.append( $column ).masonry( 'appended', $column );
+
+        // okay to call methods
+        $grid.append( $column )
+          .masonry( 'appended', $column );
+        // just do layout on imagesLoaded
+        $grid.imagesLoaded( function() {
+          $grid.masonry('layout');
+        });
 
       });
 
