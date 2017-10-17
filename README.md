@@ -10,3 +10,5 @@ Try the app Here [http://giphy.mariomelchor.com/](http://giphy.mariomelchor.com/
 2. [Masonry](https://masonry.desandro.com/)
 3. [Images Loaded](https://imagesloaded.desandro.com/)
 4. [Bootstrap](https://getbootstrap.com/docs/3.3/)
+
+![alt text](assets/images/my-giphy-site-screenshot.jpg "My Giphy Site Screenshot")
