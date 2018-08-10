@@ -18,18 +18,6 @@ $(document).ready(function() {
   var giphyTags = [ 'nba', 'nfl', 'nhl', 'soccer', 'basketball', 'football', 'memes', 'sports', 'kobe', 'jordan' ];
   var currentTag = giphyTags[1];
 
-  // Displays tags in the DOM
-  function renderTags() {
-    $('#giphy-tags').empty();
-    $.each( giphyTags, function( index, val ) {
-       var giphyTag = $('<a href="#" class="btn btn-primary btn-tag">').html( val );
-       $('#giphy-tags').append( giphyTag );
-    });
-  }
-
-  renderTags();
-  initGiphy( currentTag );
-
   // Get value of form input when clicking submit add it to array
   $('#add-tag-submit').click(function(e) { 
     e.preventDefault();
@@ -39,10 +27,6 @@ $(document).ready(function() {
     // Check if value is not empty and is not currently in the giphyTags array
     if ( value && $.inArray( value, giphyTags ) === -1 ) {
       giphyTags.push(value);
-
-      // Run function to display new tags added to giphyTags array
-      renderTags();
-
       currentTag = value;
 
       // Render giphy images with value added to input
@@ -57,14 +41,6 @@ $(document).ready(function() {
     initGiphy( currentTag );
   });
 
-  // function to init Giphy
-  function initGiphy( tag ) {
-    $('#giphy-row').empty();
-    $('#giphy-row').append('<div class="grid-sizer">');
-
-    giphyAPI(tag);
-  }
-
   // Play/Pause when .giphy-img is clicked
   $(document).on('click', '.giphy-img', function(e) {
     var img = $(this);
@@ -74,15 +50,26 @@ $(document).ready(function() {
     img.attr('src', gif ).attr('data-gif', src );
   });
 
+  // Event handler when you scroll to the bottom of page
   $(window).on('scroll', function() {
     var scrollHeight = $(document).height();
     var scrollPosition = $(window).height() + $(window).scrollTop();
 
+    // if users scrolls to the bottom call the giphy API
     if ( (scrollHeight - scrollPosition) / scrollHeight === 0 ) {
       offset += 25;
       giphyAPI( currentTag );
     }
   });
+
+  // function to init Giphy
+  function initGiphy( tag ) {
+    $('#giphy-row').empty();
+    $('#giphy-row').append('<div class="grid-sizer">');
+
+    renderTags();
+    giphyAPI(tag);
+  }
 
   // function to call the Giphy API
   function giphyAPI(search) {
@@ -141,7 +128,7 @@ $(document).ready(function() {
       column.append( giphyItem );
 
       // Masonry layout
-      $column =  $( column );
+      $column = $( column );
       $grid.append( $column ).masonry( 'appended', $column );
       $grid.imagesLoaded( function() {
         $grid.masonry('layout');
@@ -150,5 +137,17 @@ $(document).ready(function() {
     });
     
   }
+
+  // function to display tags
+  function renderTags() {
+    $('#giphy-tags').empty();
+    $.each( giphyTags, function( index, val ) {
+      var giphyTag = $('<a href="#" class="btn btn-primary btn-tag">').html( val );
+      $('#giphy-tags').append( giphyTag );
+    });
+  }
+
+  // init giphy
+  initGiphy( currentTag );
 
 });
