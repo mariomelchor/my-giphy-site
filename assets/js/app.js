@@ -10,11 +10,13 @@ $(document).ready(function() {
   });
 
   // API
+  var offset = 0;
   var apiurl = 'https://api.giphy.com/v1/gifs/search?';
   var apikey = 'dc6zaTOxFJmzC';
-
+  
   // Search Tags Array
   var giphyTags = [ 'nba', 'nfl', 'nhl', 'soccer', 'basketball', 'football', 'memes', 'sports', 'kobe', 'jordan' ];
+  var currentTag = giphyTags[1];
 
   // Displays tags in the DOM
   function renderTags() {
@@ -26,10 +28,10 @@ $(document).ready(function() {
   }
 
   renderTags();
-  renderGiphyImg( giphyTags[1] );
+  renderGiphyImg( currentTag );
 
   // Get value of form input when clicking submit add it to array
-  $('#add-tag-submit').click(function(e) {
+  $('#add-tag-submit').click(function(e) { 
     e.preventDefault();
 
     var value = $('#add-tag-input').val();
@@ -41,6 +43,8 @@ $(document).ready(function() {
       // Run function to display new tags added to giphyTags array
       renderTags();
 
+      currentTag = value;
+
       // Render giphy images with value added to input
       renderGiphyImg( value );
     }
@@ -50,77 +54,18 @@ $(document).ready(function() {
   // When .btn-tag is clicked
   $(document).on('click', '.btn-tag', function(e) {
     var tagClicked = $(this).html();
+    currentTag = tagClicked;
     renderGiphyImg( tagClicked );
   });
-
 
   // Render giphy images in the DOM
   function renderGiphyImg( tag ) {
 
-    var search = 'q=' + tag;
-    var queryURL = apiurl + search  +'&limit=18&api_key=' + apikey;
-
     $('#giphy-row').empty();
-    // Needed for masonsry
+    // // Needed for masonsry
     $('#giphy-row').append('<div class="grid-sizer">');
 
-    $.ajax({
-      url: queryURL,
-      method: "GET"
-    }).done(function (result) {
-
-      $.each( result.data , function( index, giphy ) {
-
-        var column    = $('<div class="giphy-col col-xs-12 col-sm-6 col-md-4 col-lg-3">');
-        var giphyItem = $('<div class="giphy-item">');
-        var giphyMeta = $('<div class="giphy-meta">');
-        var userMeta  = $('<div class="giphy-user">');
-        var userImg   = $('<img class="img-avatar">');
-        var giphyUrl  = giphy.bitly_url;
-        var linkIcon  = '<a href="'+ giphyUrl +'" class="giphy-link pull-right"><span class="glyphicon glyphicon-new-window"></span></a>';
-
-        if ( typeof giphy.user != 'undefined' ) {
-          var userName = giphy.user.display_name;
-          var avatar_url = giphy.user.avatar_url;
-        } else {
-          var userName = 'Giphy';
-          var avatar_url = 'https://media2.giphy.com/avatars/studiosoriginals/j3JBzK5twdv8.jpg';
-        }
-
-        userImg.attr({
-          src: avatar_url,
-          width: '36'
-        });
-
-        userMeta.append( userImg );
-        userMeta.append( userName );
-        giphyMeta.append( userMeta );
-        giphyMeta.append( linkIcon );
-
-        var img = $('<img>');
-        img.attr( 'data-gif', giphy.images.downsized.url );
-
-        img.attr({
-          src:    giphy.images.fixed_height_still.url,
-          width:  giphy.images.fixed_height_still.width,
-          height: giphy.images.fixed_height_still.height,
-          class: 'giphy-img media-fluid center-block'
-        });
-
-        giphyItem.append( img );
-        giphyItem.append( giphyMeta );
-        column.append( giphyItem );
-
-        // Masonry layout
-        $column =  $( column );
-        $grid.append( $column ).masonry( 'appended', $column );
-        $grid.imagesLoaded( function() {
-          $grid.masonry('layout');
-        });
-
-      });
-
-    });
+    giphyAPI(tag);
 
   }
 
@@ -132,5 +77,83 @@ $(document).ready(function() {
 
     img.attr('src', gif ).attr('data-gif', src );
   });
+
+  $(window).on('scroll', function() {
+    var scrollHeight = $(document).height();
+    var scrollPosition = $(window).height() + $(window).scrollTop();
+
+    if ( (scrollHeight - scrollPosition) / scrollHeight === 0 ) {
+      offset += 25;
+      giphyAPI( currentTag );
+    }
+  });
+
+
+  // function to call the Giphy API
+  function giphyAPI(tag) {
+    var search = 'q=' + tag;
+    var queryURL = apiurl + search  +'&api_key=' + apikey + '&offset=' + offset;
+
+    $.ajax({
+      url: queryURL,
+      method: "GET"
+    }).done(function (result) {
+      displayGiphy( result.data );
+    });
+  }
+
+  function displayGiphy( data ) {
+    $.each( data , function( index, giphy ) {
+
+      var column    = $('<div class="giphy-col col-xs-12 col-sm-6 col-md-4 col-lg-3">');
+      var giphyItem = $('<div class="giphy-item">');
+      var giphyMeta = $('<div class="giphy-meta">');
+      var userMeta  = $('<div class="giphy-user">');
+      var userImg   = $('<img class="img-avatar">');
+      var giphyUrl  = giphy.bitly_url;
+      var linkIcon  = '<a href="'+ giphyUrl +'" class="giphy-link pull-right"><span class="glyphicon glyphicon-new-window"></span></a>';
+
+      if ( typeof giphy.user != 'undefined' ) {
+        var userName = giphy.user.display_name;
+        var avatar_url = giphy.user.avatar_url;
+      } else {
+        var userName = 'Giphy';
+        var avatar_url = 'https://media2.giphy.com/avatars/studiosoriginals/j3JBzK5twdv8.jpg';
+      }
+
+      userImg.attr({
+        src: avatar_url,
+        width: '36'
+      });
+
+      userMeta.append( userImg );
+      userMeta.append( userName );
+      giphyMeta.append( userMeta );
+      giphyMeta.append( linkIcon );
+
+      var img = $('<img>');
+      img.attr( 'data-gif', giphy.images.downsized.url );
+
+      img.attr({
+        src:    giphy.images.fixed_height_still.url,
+        width:  giphy.images.fixed_height_still.width,
+        height: giphy.images.fixed_height_still.height,
+        class: 'giphy-img media-fluid center-block'
+      });
+
+      giphyItem.append( img );
+      giphyItem.append( giphyMeta );
+      column.append( giphyItem );
+
+      // Masonry layout
+      $column =  $( column );
+      $grid.append( $column ).masonry( 'appended', $column );
+      $grid.imagesLoaded( function() {
+        $grid.masonry('layout');
+      });
+
+    });
+    
+  }
 
 });
