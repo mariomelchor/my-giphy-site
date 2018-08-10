@@ -4,7 +4,7 @@ $(document).ready(function() {
   var $grid = $('#giphy-row').imagesLoaded( function() {
     $grid.masonry({
       itemSelector: '.giphy-col',
-      columnWidth: '.grid-sizer',
+      columnWidth: '.giphy-col',
       percentPosition: true
     });
   });
@@ -63,7 +63,7 @@ $(document).ready(function() {
   });
 
   // function to init Giphy
-  function initGiphy( tag ) {
+  function initGiphy(tag) {
     $('#giphy-row').empty();
     $('#giphy-row').append('<div class="grid-sizer">');
 
@@ -148,6 +148,6 @@ $(document).ready(function() {
   }
 
   // init giphy
-  initGiphy( currentTag );
+  initGiphy(currentTag);
 
 });

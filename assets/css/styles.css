@@ -42,9 +42,6 @@ body {
 .giphy-tags-col {
 	margin-bottom: 50px;
 }
-.grid-sizer {
-	width: 25%;
-}
 .giphy-col {
 	margin-bottom: 30px;
 }
@@ -74,7 +71,6 @@ body {
 .giphy-item .giphy-link:focus {
 	color: #4cae4c;
 }
-
 
 /*------------------------------------*\
 	#Styles
