@@ -9,7 +9,6 @@ $(document).ready(function() {
     });
   });
 
-
   // API
   var apiurl = 'https://api.giphy.com/v1/gifs/search?';
   var apikey = 'dc6zaTOxFJmzC';
@@ -70,11 +69,9 @@ $(document).ready(function() {
       method: "GET"
     }).done(function (result) {
 
-      // console.log(result);
-
       $.each( result.data , function( index, giphy ) {
-        // console.log(giphy);
-        var column    = $('<div class="giphy-col col-sm-4">');
+
+        var column    = $('<div class="giphy-col col-xs-12 col-sm-6 col-md-4 col-lg-3">');
         var giphyItem = $('<div class="giphy-item">');
         var giphyMeta = $('<div class="giphy-meta">');
         var userMeta  = $('<div class="giphy-user">');
@@ -93,13 +90,12 @@ $(document).ready(function() {
         userImg.attr({
           src: avatar_url,
           width: '36'
-        });;
+        });
 
         userMeta.append( userImg );
         userMeta.append( userName );
         giphyMeta.append( userMeta );
         giphyMeta.append( linkIcon );
-        // giphyMeta.append( '<div class="text-uppercase">Rating: ' + giphy.rating + '</div>');
 
         var img = $('<img>');
         img.attr( 'data-gif', giphy.images.downsized.url );
@@ -136,6 +132,5 @@ $(document).ready(function() {
 
     img.attr('src', gif ).attr('data-gif', src );
   });
-
 
 });
