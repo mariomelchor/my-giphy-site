@@ -28,7 +28,7 @@ $(document).ready(function() {
   }
 
   renderTags();
-  renderGiphyImg( currentTag );
+  initGiphy( currentTag );
 
   // Get value of form input when clicking submit add it to array
   $('#add-tag-submit').click(function(e) { 
@@ -46,27 +46,23 @@ $(document).ready(function() {
       currentTag = value;
 
       // Render giphy images with value added to input
-      renderGiphyImg( value );
+      initGiphy( value );
     }
 
   });
 
   // When .btn-tag is clicked
   $(document).on('click', '.btn-tag', function(e) {
-    var tagClicked = $(this).html();
-    currentTag = tagClicked;
-    renderGiphyImg( tagClicked );
+    currentTag = $(this).html();
+    initGiphy( currentTag );
   });
 
-  // Render giphy images in the DOM
-  function renderGiphyImg( tag ) {
-
+  // function to init Giphy
+  function initGiphy( tag ) {
     $('#giphy-row').empty();
-    // // Needed for masonsry
     $('#giphy-row').append('<div class="grid-sizer">');
 
     giphyAPI(tag);
-
   }
 
   // Play/Pause when .giphy-img is clicked
@@ -88,21 +84,20 @@ $(document).ready(function() {
     }
   });
 
-
   // function to call the Giphy API
-  function giphyAPI(tag) {
-    var search = 'q=' + tag;
-    var queryURL = apiurl + search  +'&api_key=' + apikey + '&offset=' + offset;
+  function giphyAPI(search) {
+    var queryURL = apiurl + 'q=' + search  +'&api_key=' + apikey + '&offset=' + offset;
 
     $.ajax({
       url: queryURL,
       method: "GET"
-    }).done(function (result) {
-      displayGiphy( result.data );
+    }).done(function(result) {
+      renderGiphy(result.data);
     });
   }
 
-  function displayGiphy( data ) {
+  // function to display giphy images
+  function renderGiphy(data) {
     $.each( data , function( index, giphy ) {
 
       var column    = $('<div class="giphy-col col-xs-12 col-sm-6 col-md-4 col-lg-3">');
