@@ -18,6 +18,10 @@ $(document).ready(function() {
   var giphyTags = [ 'nba', 'nfl', 'nhl', 'soccer', 'basketball', 'football', 'memes', 'sports', 'kobe', 'jordan' ];
   var currentTag = giphyTags[1];
 
+  // Handlebars Template
+  var source = $('#giphy-template').html();
+  var template = Handlebars.compile(source);
+
   // Get value of form input when clicking submit add it to array
   $('#add-tag-submit').click(function(e) { 
     e.preventDefault();
@@ -87,55 +91,17 @@ $(document).ready(function() {
   function renderGiphy(data) {
     $.each( data , function( index, giphy ) {
 
-      var column    = $('<div class="giphy-col col-xs-12 col-sm-6 col-md-4 col-lg-3">');
-      var giphyItem = $('<div class="giphy-item">');
-      var giphyMeta = $('<div class="giphy-meta">');
-      var userMeta  = $('<div class="giphy-user">');
-      var userImg   = $('<img class="img-avatar">');
-      var giphyUrl  = giphy.bitly_url;
-      var linkIcon  = '<a href="'+ giphyUrl +'" class="giphy-link pull-right"><span class="glyphicon glyphicon-new-window"></span></a>';
-
-      if ( typeof giphy.user != 'undefined' ) {
-        var userName = giphy.user.display_name;
-        var avatar_url = giphy.user.avatar_url;
-      } else {
-        var userName = 'Giphy';
-        var avatar_url = 'https://media2.giphy.com/avatars/studiosoriginals/j3JBzK5twdv8.jpg';
-      }
-
-      userImg.attr({
-        src: avatar_url,
-        width: '36'
-      });
-
-      userMeta.append( userImg );
-      userMeta.append( userName );
-      giphyMeta.append( userMeta );
-      giphyMeta.append( linkIcon );
-
-      var img = $('<img>');
-      img.attr( 'data-gif', giphy.images.downsized.url );
-
-      img.attr({
-        src:    giphy.images.fixed_height_still.url,
-        width:  giphy.images.fixed_height_still.width,
-        height: giphy.images.fixed_height_still.height,
-        class: 'giphy-img media-fluid center-block'
-      });
-
-      giphyItem.append( img );
-      giphyItem.append( giphyMeta );
-      column.append( giphyItem );
-
-      // Masonry layout
-      $column = $( column );
+      // Giphy object to handlebars template
+      var html = template(giphy);
+      var $column = $(html);
+ 
+      // Append columns and re-render masonry
       $grid.append( $column ).masonry( 'appended', $column );
       $grid.imagesLoaded( function() {
         $grid.masonry('layout');
       });
 
     });
-    
   }
 
   // function to display tags
